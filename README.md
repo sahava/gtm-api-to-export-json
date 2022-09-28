@@ -1,10 +1,10 @@
 # Convert a Google Tag Manager API repsonse into import JSON format
-Follow the steps an examples in this repo to convert a Google Tag Manager [API Version resource](https://developers.google.com/tag-platform/tag-manager/api/v2/reference/accounts/containers/versions/get) into the format required by [GTM's built-in Import/Export functionality](https://support.google.com/tagmanager/answer/6106997?hl=en).
+Follow the steps an examples in this repo to convert a Google Tag Manager [API Versions resource](https://developers.google.com/tag-platform/tag-manager/api/v2/reference/accounts/containers/versions/get) into the format required by [GTM's built-in Import/Export functionality](https://support.google.com/tagmanager/answer/6106997?hl=en).
 
 ## Steps to take
-Translating the API Version resource to the import JSON format takes the following steps:
+Translating the API Versions resource to the import JSON format takes the following steps:
 1. Create a new object with `"exportFormatVersion": 2` and `"containerVersion": {}` key-value pairs.
-2. Nest the **entire** API Version resource under `"containerVersion"`.
+2. Nest the **entire** API Versions resource under `"containerVersion"`.
 3. Convert the following values from **camelCase** to **SNAKE_CASE_IN_CAPS**:
     1. All `type` values **unless** the `type` key is in the root of a `client`, `tag` or a `variable` resource.
     2. `container.containerVersion.usageContext`
@@ -63,6 +63,6 @@ This has been tested with a Web Container version and a Server Container version
 
 There might be edge cases not covered by this script. Please submit your findings as Issues to this repo.
 
-For some reason, when you import an exported JSON version, the diff often claims that the resources are different and require a delete/create (when overwriting) or rename (when merging) for the imported assets. From what I can tell, there's no difference between what was deleted and what was created, and this behavior happens also when importing a normal export JSON rather than one created from the API resource.
+For some reason, when you import a container version, the diff often claims that the resources are different and require a delete/create (when overwriting) or rename (when merging) operation for the imported assets. From what I can tell, there's no difference between what was deleted and what was created, and this behavior happens also when importing a normal export JSON rather than one created from the API resource.
 
 The above behavior should not impact the integrity of the imported container version, even if it creates some clutter in the UI with all the unnecessary version modification log entries.
