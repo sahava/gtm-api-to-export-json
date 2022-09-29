@@ -22,7 +22,7 @@ const exportJson = {
 };
 
 // Utility to convert camelCase into SNAKE_CASE_IN_CAPS
-const camelToSnake = (val) => val
+const camelToSnakeCaps = (val) => val
     .replace(/([A-Z])/g, ' $1' )
     .split(' ')
     .join('_')
@@ -31,16 +31,16 @@ const camelToSnake = (val) => val
 // Recursion to change all the required values from camelCase to SNAKE_CASE_IN_CAPS
 const recursivelyChangeKeys = (parentKey, obj) => {
     if (obj.hasOwnProperty('usageContext')) {
-        obj.usageContext[0] = camelToSnake(obj.usageContext[0]);
+        obj.usageContext[0] = camelToSnakeCaps(obj.usageContext[0]);
     }
     if (obj.hasOwnProperty('type') && parentKey !== 'client' && parentKey !== 'tag' && parentKey !== 'variable') {
-        obj.type = camelToSnake(obj.type);
+        obj.type = camelToSnakeCaps(obj.type);
     }
     if (obj.hasOwnProperty('tagFiringOption')) {
-        obj.tagFiringOption = camelToSnake(obj.tagFiringOption);
+        obj.tagFiringOption = camelToSnakeCaps(obj.tagFiringOption);
     }
     if (obj.hasOwnProperty('consentStatus')) {
-        obj.consentStatus = camelToSnake(obj.consentStatus);
+        obj.consentStatus = camelToSnakeCaps(obj.consentStatus);
     }
     for (let prop in obj) {
         if (Array.isArray(obj[prop])) {
